@@ -33,9 +33,12 @@ add.addEventListener("click", () => {
   // if (window.innerWidth > 660) titleTag.focus();
 });
 remove.addEventListener("click", () => {
-  localStorage.clear();
- location.reload()
-  // alert("hi") //$
+  const isNotes = localStorage.getItem("notes")
+  if (!isNotes) return
+  const confirmDel = confirm("Are you sure you want to delete all note?");
+  if (!confirmDel) return;
+  localStorage.removeItem("notes");
+  location.reload()
 });
 
 closeIcon.addEventListener("click", () => {
@@ -49,8 +52,8 @@ function showNotes() {
   if (!notes) return;
   document.querySelectorAll(".note").forEach((li) => li.remove());
   notes.forEach((note, id) => {
-    let filterDesc = note.description.replaceAll("\n", "<br/>");
-    let liTag = `<li class="note">
+    const filterDesc = note.description.replaceAll("\n", "<br/>");
+    const liTag = `<li class="note">
                   <div class="details">
                     <p>${note.title}</p>
                     <span>${filterDesc}</span>
@@ -81,7 +84,7 @@ function showMenu(elem) {
 }
 
 function deleteNote(noteId) {
-  let confirmDel = confirm("Are you sure you want to delete this note?");
+  const confirmDel = confirm("Are you sure you want to delete this note?");
   if (!confirmDel) return;
   notes.splice(noteId, 1);
   localStorage.setItem("notes", JSON.stringify(notes));
@@ -89,7 +92,7 @@ function deleteNote(noteId) {
 }
 
 function updateNote(noteId, title, filterDesc) {
-  let description = filterDesc.replaceAll("<br/>", "\r\n");
+  const description = filterDesc.replaceAll("<br/>", "\r\n");
   updateId = noteId;
   isUpdate = true;
   add.click();
@@ -101,16 +104,16 @@ function updateNote(noteId, title, filterDesc) {
 
 addBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  let title = titleTag.value.trim(),
+  const title = titleTag.value.trim(),
     description = descTag.value.trim();
 
   if (title || description) {
-    let currentDate = new Date(),
+    const currentDate = new Date(),
       month = months[currentDate.getMonth()],
       day = currentDate.getDate(),
       year = currentDate.getFullYear();
 
-    let noteInfo = { title, description, date: `${month} ${day}, ${year}` };
+    const noteInfo = { title, description, date: `${month} ${day}, ${year}` };
     if (!isUpdate) {
       notes.push(noteInfo);
     } else {
