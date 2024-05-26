@@ -21,8 +21,8 @@ body {
 /* button styling */
 .button {
   --border-right: 6px;
-  --text-stroke-color: rgba(255,255,255,0.6);
-  --animation-color: #37FF8B;
+  --text-stroke-color: rgba(255, 255, 255, 0.6);
+  --animation-color: #37ff8b;
   --fs-size: 2em;
   letter-spacing: 3px;
   text-decoration: none;
@@ -49,12 +49,12 @@ body {
 /* hover */
 .button:hover .hover-text {
   width: 100%;
-  filter: drop-shadow(0 0 23px var(--animation-color))
+  filter: drop-shadow(0 0 23px var(--animation-color));
 }
 
 ::selection {
   color: #021622;
-  background: #37FF8B;
+  background: #37ff8b;
 }
 
 .wrapper {
@@ -62,7 +62,6 @@ body {
   display: grid;
   gap: 25px;
   grid-template-columns: repeat(auto-fill, 265px);
-  
 }
 .wrapper li {
   box-shadow: 11px 13px 12px rgba(0, 0, 0, 0.151);
@@ -88,7 +87,7 @@ header,
   transition: 0.1s;
 }
 .add-box:hover {
-margin-top: -10px;
+  margin-top: -10px;
 }
 .add-box .icon {
   height: 78px;
@@ -100,19 +99,8 @@ margin-top: -10px;
   border: 2px dashed #88abff;
   transition: 01s;
 }
-@keyframes animate {
-  0%{
-    transform: rotate(0deg);
-  }
-  50%{
-    transform: rotate(180deg);
-  }
-  100%{
-    transform: rotate(0deg);
-  }
-}
 .add-box .icon:hover {
-  animation: animate 0.5s ;
+  animation: animate 0.5s;
   border: 2px solid #88abff;
 }
 .add-box p {
@@ -120,8 +108,12 @@ margin-top: -10px;
   font-weight: 500;
   margin-top: 20px;
 }
+
+#remove.disable {
+  display: none;
+}
+
 .note {
-  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -295,7 +287,19 @@ form button {
   border: none;
   font-size: 17px;
   border-radius: 4px;
-  background: #37FF8B;
+  background: #37ff8b;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @media (max-width: 660px) {
@@ -312,11 +316,11 @@ form button {
   }
 }
 
-@keyframes colors{
-  0%{
+@keyframes colors {
+  0% {
     filter: hue-rotate(0deg);
   }
-  100%{
+  100% {
     filter: hue-rotate(360deg);
   }
 }
