@@ -110,14 +110,7 @@ header,
 }
 
 #remove.disable {
-  opacity: 0.6;
-}
-#remove.disable:hover {
-  margin-top: 0;
-}
-#remove.disable .icon:hover {
-  border: 2px dashed #88abff;
-  animation: none;
+  display: none;
 }
 
 .note {
