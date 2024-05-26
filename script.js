@@ -21,30 +21,35 @@ const months = [
   "November",
   "December",
 ];
-const notes = JSON.parse(localStorage.getItem("notes") || "[]");
-let isUpdate = false,
-  updateId;
+const NOTES = "notes", DISABLE = "disable", SHOW = "show"
+const notes = JSON.parse(localStorage.getItem(NOTES) || "[]");
+let isUpdate = false, updateId;
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (!notes || notes.length === 0) {
+    remove.classList.add(DISABLE)
+  }
+})
 
 add.addEventListener("click", () => {
   popupTitle.innerText = "Add a new Task";
   addBtn.innerText = "Add Task";
-  popupBox.classList.add("show");
+  popupBox.classList.add(SHOW);
   document.querySelector("body").style.overflow = "hidden";
   // if (window.innerWidth > 660) titleTag.focus();
 });
 remove.addEventListener("click", () => {
-  const isNotes = localStorage.getItem("notes")
-  if (!isNotes) return
+  if (!notes || notes.length === 0) return
   const confirmDel = confirm("Are you sure you want to delete all note?");
   if (!confirmDel) return;
-  localStorage.removeItem("notes");
+  localStorage.removeItem(NOTES);
   location.reload()
 });
 
 closeIcon.addEventListener("click", () => {
   isUpdate = false;
   titleTag.value = descTag.value = "";
-  popupBox.classList.remove("show");
+  popupBox.classList.remove(SHOW);
   document.querySelector("body").style.overflow = "auto";
 });
 
@@ -75,10 +80,10 @@ function showNotes() {
 showNotes();
 
 function showMenu(elem) {
-  elem.parentElement.classList.add("show");
+  elem.parentElement.classList.add(SHOW);
   document.addEventListener("click", (e) => {
     if (e.target.tagName != "I" || e.target != elem) {
-      elem.parentElement.classList.remove("show");
+      elem.parentElement.classList.remove(SHOW);
     }
   });
 }
@@ -87,8 +92,12 @@ function deleteNote(noteId) {
   const confirmDel = confirm("Are you sure you want to delete this note?");
   if (!confirmDel) return;
   notes.splice(noteId, 1);
-  localStorage.setItem("notes", JSON.stringify(notes));
+  localStorage.setItem(NOTES, JSON.stringify(notes));
+  // location.reload()
   showNotes();
+  if (!notes || notes.length === 0) {
+    remove.classList.add(DISABLE)
+  }
 }
 
 function updateNote(noteId, title, filterDesc) {
@@ -120,7 +129,8 @@ addBtn.addEventListener("click", (e) => {
       isUpdate = false;
       notes[updateId] = noteInfo;
     }
-    localStorage.setItem("notes", JSON.stringify(notes));
+    localStorage.setItem(NOTES, JSON.stringify(notes));
+    remove.classList.remove(DISABLE)
     showNotes();
     closeIcon.click();
   }
